@@ -1,0 +1,364 @@
+/* ===== Computadora (desktop) ===== */
+/* Estilos base */
+:root {
+  --bg: #0e0b16;          /* negro/morado */
+  --text: #efe9ff;        /* casi blanco */
+  --muted: #b8a7d6;       /* morado grisáceo */
+  --primary: #bb86ff;     /* violeta */
+  --primary-2: #6f2dce;   /* morado vino */
+  --border: rgba(187, 134, 255, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--primary-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  /* mueve el bloque del título un poco a la derecha */
+  margin-left: 28px;
+}
+
+
+
+/* Título del periódico (en el header) */
+.brand h2 {
+  margin: 0;
+  font-family: "Gothic A1", "Blackletter", "Old English Text MT", "Segoe UI Black", "Segoe UI Historic", serif;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-align: center;
+}
+
+
+
+.logo {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+
+  /* mueve el logo un poco a la izquierda */
+  margin-left: -14px;
+}
+
+
+
+.menu-movil {
+  display: none; /* solo en móvil */
+  border: 1px solid var(--border);
+  background: rgba(187, 134, 255, 0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.nav-links a:hover {
+  background: rgba(155, 77, 255, 0.14);
+  color: var(--primary);
+}
+
+/* Secciones (hojas) por tema */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 26px 20px 40px;
+  display: grid;
+  gap: 22px;
+}
+
+.tema {
+  border: 1px solid rgba(187, 134, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(23, 17, 38, 0.35);
+  padding: 18px;
+}
+
+.tema-encabezado {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.tema-encabezado h3 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0.1px;
+  line-height: 1.25;
+  color: var(--primary);
+  font-weight: 800;
+
+  /* más suave para que no estorbe visualmente */
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+}
+
+
+
+.tema-encabezado p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.4;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+
+
+/* Animación: cuando el usuario baja la página, el título (h3) se “disuelve”
+   y deja solo el nombre de la sección (h3 fuera de la animación dinámica).
+   Se hace vía clase en JS.
+*/
+.tema-encabezado .tema-titulo {
+  display: inline-block;
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+/* Estado: se activa al scrollear */
+.tema-encabezado.is-condensado {
+  /* Solo mantener el nombre (h3) visible */
+}
+
+/* Desaparece el resto del header para que quede únicamente el nombre de la sección */
+.tema-encabezado.is-condensado p {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Mantener el título siempre visible cuando se condensa */
+.tema-encabezado.is-condensado .tema-titulo {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+
+
+
+
+/* Grid de noticias dentro de la hoja */
+.grid-noticias {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.noticia {
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid rgba(187, 134, 255, 0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(14, 11, 22, 0.25);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  backdrop-filter: blur(6px);
+}
+
+.noticia-imagen {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+
+.noticia-titulo,
+.noticia-sub {
+  padding: 14px 14px 0 14px;
+}
+
+.noticia-sub {
+  padding: 8px 14px 16px 14px;
+}
+
+
+.noticia:hover {
+  transform: translateY(-2px);
+  border-color: rgba(187, 134, 255, 0.25);
+  box-shadow: 0 10px 24px rgba(187, 134, 255, 0.08);
+  background: rgba(14, 11, 22, 0.38);
+}
+
+/* Reveal (microinteracciones) */
+.noticia.reveal-init {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.noticia.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 450ms ease, transform 450ms ease;
+}
+
+/* Evita animaciones si el usuario prefiere reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .noticia.reveal-init,
+  .noticia.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+
+.noticia-titulo {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.noticia-sub {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  background: rgba(23, 17, 38, 0.92);
+  padding: 18px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ===== Celular (mobile) ===== */
+/* Estilos de teléfono */
+@media (max-width: 900px) {
+  .grid-noticias {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .header-container {
+    padding: 14px 14px;
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .menu-movil {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 64px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 14px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .nav-links.activo {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
+    padding: 10px 12px;
+  }
+
+  main {
+    padding: 16px 14px 24px;
+  }
+
+  .grid-noticias {
+    grid-template-columns: 1fr;
+  }
+
+  .tema-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ===== Comportamiento (aplica en todos los tamaños) ===== */
+/* Ocultar logo + índice al scrollear (clase aplicada por JS) */
+header.scrolled .brand {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+
+header.scrolled .nav-links {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+
+header.scrolled .header-container {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* Asegurar que el botón hamburguesa siga visible aunque el header se “condense” */
+header.scrolled .menu-movil {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+
+
+
+
+
